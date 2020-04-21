@@ -1,0 +1,310 @@
+*{
+    padding: 0;
+    margin: 0;
+    font-family: sans-serif; /* Change your font family */
+    
+}
+body{
+    background:#F2F2F2;
+    
+}
+
+/*Barrra de navegacion ========================================*/
+header{
+    
+    height: 60px;
+    background: #173341;
+    padding: 10px;
+    margin-right: 0px;
+}
+
+
+#input-search{
+    width: 470px;
+    height: 40px;
+    font-size: 13px;
+    text-indent: 10px;
+    float: right;
+    margin-right: 10px;
+    margin-top: 8px;
+}
+
+.content-search{
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    top: 60px;
+    left: 0;
+    background: rgba(0,0,0,0.3);
+    display: none;
+}
+header h1{
+    font-size: 20px;
+    text-align: center;
+    line-height: 50px;
+    float: left;
+    margin-left: 20px;
+    color: #dddd;
+}
+
+.seccion{
+    font-size: 12px;
+    text-align: left;
+    line-height: 50px;
+    float: left;
+    margin-top: 3px;
+    margin-left: 40px;
+    color: #dddd;
+}
+
+.seccion2{
+
+    width: 100%;
+    padding: 0px;
+    font-size: 14px;
+    text-align: left;
+    line-height: 50px;
+    float: left;
+    margin-top: 0px;
+    margin-left: 0px;
+    color: #dddd;
+    background-color: #173341;
+  }
+
+
+header h3{
+    visibility: hidden;
+    font-size: 13px;
+    text-align: center;
+    line-height: 50px;
+    float: left;
+    margin-top: 3px;
+    margin-left: 0px;
+    color: #dddd;
+}
+
+
+/*Estilos generales ==========================================*/
+
+nav ul{
+    list-style: none;
+    padding: 0;
+    float: left;
+    border-radius: 0 0 5px 5px;
+}
+
+
+nav li ul{
+    position: absolute;
+    display: none;
+}
+
+nav li:hover > ul{
+    display: block;
+
+
+}
+nav li{
+    color:#dddd;
+    display: inline-block;
+ 
+    text-decoration: none;
+    transition: .3s;
+
+    line-height: 1.8rem;
+    position: relative;
+}
+nav a{
+    color:#ffffff;
+    display: block;
+    padding: 0 2.2em;
+    text-decoration: none;
+    transition: .3s;
+}
+
+nav a:hover{
+    background: rgba(0, 0, 0, 0.5)
+}
+
+
+
+/*Estilos primer nivel ======================================*/
+
+nav ul ul ul{
+    display: none;
+}
+
+nav > ul{
+    background: #3E6170;
+    display: table;
+    margin-top: 0px;
+}
+
+nav > ul > li{
+    float: top;
+    
+}
+
+
+
+
+
+
+/*Botones =====================================================*/
+button{
+    text-decoration: none;
+    padding: 5px;
+    margin: 0;
+    border: 0;
+    padding: 0 4.0em;
+    font-size: 18px;
+    color: #ffffff;
+    background-color: #3E6170; 
+        
+}
+
+.siguiente{
+    float: right;
+    text-align:right;
+}
+
+.atras{
+  
+    text-align:right;
+    float: right;
+    
+}
+
+
+
+/*Prueba de contenedores*/
+
+.prueba{
+    text-decoration: none;
+    padding: 10px;
+    margin: 0;
+    border: 0;
+    padding: 0 4.25em;
+    font-size: 20px;
+    color: #ffffff;
+    background-color: #b12020;
+    float: top-margin;
+    position:absolute;
+}
+
+
+.list_of_categories{
+    display: inline-block;    
+    
+}
+
+
+/*Tabla ===============================================*/
+
+  
+  .content-table {
+	border-collapse: collapse;
+	margin: 0px 0;
+	font-size: 0.9em;
+	/**min-width: 1300px;*/
+	border-radius: 0 0 0 0;
+	overflow: hidden;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    width: 100%;
+    margin-top: 0px;
+    
+  }
+  
+  .content-table thead tr {
+	background-color: #5B808E;
+	color: #ffffff;
+	text-align: left;
+	font-weight: bold;
+  }
+  
+  .content-table th,
+  .content-table td {
+	padding: 12px 15px;
+  }
+  
+  .content-table tbody tr {
+	border-bottom: 1px solid #dddddd;
+  }
+  
+  .content-table tbody tr:nth-of-type(even) {
+	background-color: #f3f3f3;
+  }
+  
+  .content-table tbody tr:last-of-type {
+	border-bottom: 2px solid #5B808E;
+  }
+  
+  .content-table tbody tr.active-row {
+	font-weight: bold;
+	color: #5B808E;
+  }
+
+
+/*footer ===================================================*/
+    .footer, .push {
+    height: 3em;
+    }
+
+    /*Loadar ====================================================*/
+
+  .loader-container2{
+    
+    width: 60px;
+    height: 60px;
+
+    position: absolute;
+    top:500px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    
+  }
+   
+  .loader-container2 .loader3{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    border: solid 4px transparent;
+    border-top-color: #5B808E;
+    border-left-color: #5B808E;
+    border-radius: 50%;
+    animation: loader3 1.4s linear infinite;
+  }
+   
+  .loader-container2 .loader4{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 70%;
+    height: 70%;
+    border: solid 4px transparent;
+    border-top-color: #173341;
+    border-left-color: #173341;
+    border-radius: 50%;
+    animation: loader4 1.2s linear infinite;
+  }
+
+  @keyframes loader3{
+    0%{
+      transform: translate(-50%, -50%) rotate(0deg);
+    }
+    100%{
+      transform: translate(-50%, -50%) rotate(360deg);
+    }
+  }
+   
+  @keyframes loader4{
+    0%{
+      transform: translate(-50%, -50%) rotate(0deg);
+    }
+    100%{
+      transform: translate(-50%, -50%) rotate(-360deg);
+    }
+  }
+

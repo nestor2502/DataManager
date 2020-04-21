@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="Librerias/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="css/estilosNuevos.css">
+    <title>Document</title>
+</head>
+<body>
+  <div>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">Data Manager</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <!--li class="nav-item active">
+              <a class="nav-link" href="#">Categorias</a>
+            </li-->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                Categorias
+              </a>
+              <div class="dropdown-menu" id="dropdown_menu"  aria-labelledby="navbarDropdown">
+                <a  class="dropdown-item"  id="MLM1747" onclick= "initDocument(id)">Accesorios para Vehiculos</a>
+                <a  class="dropdown-item" id="MLM1403" onclick= "initDocument(id)">Alimentos y bebidas</a>
+                <a  class="dropdown-item" id="MLM1071" onclick= "initDocument(id)">Animales y mascotas</a>
+                <a  class="dropdown-item" id="MLM1743" onclick= "initDocument(id)">Autos, motos</a>
+                <a  class="dropdown-item" id="MLM1384" onclick= "initDocument(id)">Bebes</a>
+                <a  class="dropdown-item" id="MLM1051" onclick= "initDocument(id)">Celulares y telefonia</a>
+                <a  class="dropdown-item" id="MLM1648" onclick= "initDocument(id)">Computacion</a>
+                <a  class="dropdown-item" id="MLM1144" onclick= "initDocument(id)">Consolas y Videojuegos</a>
+                <a  class="dropdown-item" id="MLM1276" onclick= "initDocument(id)">Deportes y fitness</a>
+                <a  class="dropdown-item" id="MLM1575" onclick= "initDocument(id)">Electrodomesticos</a>
+                <a  class="dropdown-item" id="MLM1574" onclick= "initDocument(id)">Hogar, muebes y jardin</a>
+                <a  class="dropdown-item" id="MLM1132" onclick= "initDocument(id)">juegos y juguetes</a>
+                <a  class="dropdown-item" id="MLM3025" onclick= "initDocument(id)">Libros, revistas y comics</a>
+                <a  class="dropdown-item" id="MLM1430" onclick= "initDocument(id)">ropa, bolsas y calzado</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" data-toggle="modal" href="#modal1">Otros</a>
+              </div>
+            </li>
+          </ul>
+          <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-3"  id="input-search" type="search" placeholder="Ingresa una palabra" aria-label="Search" onkeyup = "if(event.keyCode == 13) doSearch(this)">
+            <button id="boton_search" class="btn btn-outline-light my-2 my-sm-0" type="submit" onclick="doSearch(false)">Buscar</button>
+          </form>
+        </div>
+      </nav>
+      <div class="modal fade" id = modal1>
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title"> Otras Categorias</h5>
+                    </div>
+                    <div class="modal-body">
+                        <a class="dropdown-item" id="MLM1367" onclick= "initDocument(id)" data-dismiss="modal" >Antiguedades y colecciones</a>
+                        <a class="dropdown-item" id="MLM1368" onclick= "initDocument(id)" data-dismiss="modal">Papeleria y merceria</a>
+                        <a class="dropdown-item" id="MLM1246" onclick= "initDocument(id)" data-dismiss="modal">belleza y cuidado personal</a>
+                        <a class="dropdown-item" id="MLM1039" onclick= "initDocument(id)" data-dismiss="modal">camaras y accesorios</a>
+                        <a class="dropdown-item" id="MLM1000" onclick= "initDocument(id)" data-dismiss="modal">Electronica, audio y video</a>
+                        <a class="dropdown-item" id="MLM166863" onclick= "initDocument(id)" data-dismiss="modal">herramientas y construccion</a>
+                        <a class="dropdown-item" id="MLM1499" onclick= "initDocument(id)" data-dismiss="modal">industria y oficinas</a>
+                        <a class="dropdown-item" id="MLM1459" onclick= "initDocument(id)" data-dismiss="modal">Inmuebles</a>
+                        <a class="dropdown-item" id="MLM1182" onclick= "initDocument(id)" data-dismiss="modal">instrumentos musicales</a>
+                        <a class="dropdown-item" id="MLM3937" onclick= "initDocument(id)" data-dismiss="modal">joyas y relojes</a>
+                        <a class="dropdown-item" id="MLM1168" onclick= "initDocument(id)" data-dismiss="modal">musica, peliculas y series</a>
+                        <a class="dropdown-item" id="MLM44011" onclick= "initDocument(id)" data-dismiss="modal">recuerdos y fiestas</a>
+                        <a class="dropdown-item" id="MLM187772" onclick= "initDocument(id)" data-dismiss="modal">salud y equipamiento medico</a>
+                        <a class="dropdown-item" id="MLM1540" onclick= "initDocument(id)" data-dismiss="modal">Servicios</a>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+      </div>
+
+
+
+
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb" id= change_category>
+          <li id = "malm"class="breadcrumb-item " aria-current="page">Inicio</li>
+        </ol>
+      </nav>
+
+
+
+
+
+
+      <div class="container">
+		<div id="tabla">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="table-responsive">
+                    <table id="tabla_factura" class="table table-hover table-condensed table-bordered">
+                        <tr>
+                            <th>No.</th>
+                            <th>Vendedor</th>
+                            <th>Reputacion</th>
+                            <th>Titulo</th>
+                            <th>Precio</th>
+                            <th>Vendidos</th>
+                            <th>Tipo de publicación</th>
+                            <th>Direccion</th>
+                            <th>Envio Gratis</th>
+                            <th>Publicacion</th>
+                        </tr>
+                        <tr>
+                            <td> </td>
+                            <td></td>
+                            <td> </td>
+                            <td></td>
+                            <td> </td>
+                            <td>  </td>
+                            <td>  </td>
+                            <td>  </td>
+                            <td>  </td>
+                            <td> </td>
+                        </tr>
+                        
+                    </table>
+                </div>
+                    <div class="container d-flex justify-content-between align-items-center">
+                        <button id="atras" class="btn btn-outline-dark d-none"  onclick="backPage()" >
+                            <svg class="bi bi-chevron-left" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 010 .708L5.707 8l5.647 5.646a.5.5 0 01-.708.708l-6-6a.5.5 0 010-.708l6-6a.5.5 0 01.708 0z" clip-rule="evenodd"/>
+                              </svg>
+                        </button>
+                        <div class="col text-center">
+                            <button id ="imprimir" class="btn btn-outline-dark d-none" onclick="download_csv()">
+                              <span id = "loaderImprimir" class="spinner-grow spinner-grow-sm d-none" role="status" aria-hidden="true"></span>
+                                <svg class="bi bi-download" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" d="M.5 8a.5.5 0 01.5.5V12a1 1 0 001 1h12a1 1 0 001-1V8.5a.5.5 0 011 0V12a2 2 0 01-2 2H2a2 2 0 01-2-2V8.5A.5.5 0 01.5 8z" clip-rule="evenodd"/>
+                                    <path fill-rule="evenodd" d="M5 7.5a.5.5 0 01.707 0L8 9.793 10.293 7.5a.5.5 0 11.707.707l-2.646 2.647a.5.5 0 01-.708 0L5 8.207A.5.5 0 015 7.5z" clip-rule="evenodd"/>
+                                    <path fill-rule="evenodd" d="M8 1a.5.5 0 01.5.5v8a.5.5 0 01-1 0v-8A.5.5 0 018 1z" clip-rule="evenodd"/>
+                                  </svg>
+                            </button>
+                          </div>
+                        <button id ="siguiente" class="btn btn-outline-dark d-none" onclick="nextPage()">
+                            <svg class="bi bi-chevron-right" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 01.708 0l6 6a.5.5 0 010 .708l-6 6a.5.5 0 01-.708-.708L10.293 8 4.646 2.354a.5.5 0 010-.708z" clip-rule="evenodd"/>
+                              </svg>
+                        </button>
+                    </div>
+                   
+    
+                </div>
+            </div>
+        </div>
+	</div>
+      <!--button type="button" class="btn btn-primary" onclick="limpiarDrop()">Limpiar dropdown</button>
+      <button type="button" class="btn btn-primary" onclick="addelement()">Agregar elemento</button>
+      <button type="button" class="btn btn-primary" onclick="changePath()">Cambia Categoria</button-->
+
+      <div class="d-flex justify-content-center">
+        <div id = "loader"class="spinner-grow justify-content-center d-none" style="width: 3rem; height: 3rem;" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+      </div>
+    </div>
+      <div class="footer" id="footer"></div>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="js/Dinamyc.js"></script>
+<script src="js/Peticiones.js"></script>
+<script src="js/table.js"></script>
+<script src="js/alasql.min.js"></script>
+<script src="js/xlsx.core.min.js"></script>
+<script src="js/PruebasNuevas.js"></script>
+<script src="Librerias/jquery-3.5.0.min.js"></script>
+<script src="Librerias/bootstrap/js/bootstrap.js"></script>
+
+</html>

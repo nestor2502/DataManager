@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link  rel="icon"   href="imagenes/icon.png" type="image/png" />
+    <link rel="stylesheet" href="css/estilos_comparador.css">
+    <link rel="stylesheet" href="css/estilos.css">
+    <link rel="stylesheet" href="Librerias/bootstrap/css/bootstrap.css">
+    <title>Document</title>
+</head>
+<body>
+
+    <header id="cabecera">
+        <input type="search" id="input-search" placeholder="Buscar productos, marcas y mas" onkeyup = "if(event.keyCode == 13) doSearch(this)">
+        <div id="selecciones">
+            <div id="opc1">
+                <label class="switch1">
+                  <input type="checkbox"  onclick="chage_state(2)">
+                  <div class="slider round"></div>
+                </label>
+              </div>
+        <div id="opc2">
+        <label class="switch2">
+            <input type="checkbox" onclick="chage_state(1)">
+            <div class="slider round"></div>
+          </label>
+          
+        </div>
+        
+    </div>
+        <p class="texto1">Analizar catalogo completo</p>
+        <p class="texto2">Analisis por categoria</p>
+        <p class="nickname">Usuario: SUCURSAL ECATEPEC</p>
+        <div class="content-search">
+        </div>
+        
+    </header>
+    <p id = "seccion2" class="seccion2" style="display:none">Categoria: Inicio</p>
+    <div class="list_of_categories"id="list_of_categories2"  style="display:none" >
+        <nav >
+            <ul  id = "subcategorias" class="subcategorias" >
+                <li><a id="MLM1747" onclick= "initDocument(id)">Accesorios para Vehiculos</a></li>
+                <li><a id="MLM1403" onclick= "initDocument(id)">Alimentos y bebidas</a></li>
+                <li><a id="MLM1071" onclick= "initDocument(id)">Animales y mascotas</a></li>
+                <li><a id="MLM1367" onclick= "initDocument(id)">Antiguedades y colecciones</a></li>
+                <li><a id="MLM1368" onclick= "initDocument(id)">Papeleria y merceria</a></li>
+                <li><a id="MLM1743" onclick= "initDocument(id)">Autos, motos</a></li>
+                <li><a id="MLM1384" onclick= "initDocument(id)">Bebes</a></li>
+                <li><a id="MLM1246" onclick= "initDocument(id)">belleza y cuidado personal</a></li>
+                <li><a id="MLM1039" onclick= "initDocument(id)">camaras y accesorios</a></li>
+                <li><a id="MLM1051" onclick= "initDocument(id)">celulares y telefonia</a></li>
+                <li><a id="MLM1648" onclick= "initDocument(id)">computacion</a></li>
+                <li><a id="MLM1144" onclick= "initDocument(id)">Consolas y Videojuegos</a></li>
+                <li><a id="MLM1276" onclick= "initDocument(id)">deportes y fitness</a></li>
+                <li><a id="MLM1575" onclick= "initDocument(id)">Electrodomesticos</a></li>
+                <li><a id="MLM1000" onclick= "initDocument(id)">Electronica, audio y video</a></li>
+                <li><a id="MLM166863" onclick= "initDocument(id)">herramientas y construccion</a></li>
+                <li><a id="MLM1574" onclick= "initDocument(id)">Hogar, muebes y jardin</a></li>
+                <li><a id="MLM1499" onclick= "initDocument(id)">industria y oficinas</a></li>
+                <li><a id="MLM1459" onclick= "initDocument(id)">Inmuebles</a></li>
+                <li><a id="MLM1182" onclick= "initDocument(id)">instrumentos musicales</a></li>
+                <li><a id="MLM3937" onclick= "initDocument(id)">joyas y relojes</a></li>
+                <li><a id="MLM1132" onclick= "initDocument(id)">juegos y juguetes</a></li>
+                <li><a id="MLM3025" onclick= "initDocument(id)">Libros, revistas y comics</a></li>
+                <li><a id="MLM1168" onclick= "initDocument(id)">musica, peliculas y series</a></li>
+                <li><a id="MLM44011" onclick= "initDocument(id)">recuerdos y fiestas</a></li>
+                <li><a id="MLM1430" onclick= "initDocument(id)">ropa, bolsas y calzado</a></li>
+                <li><a id="MLM187772" onclick= "initDocument(id)">salud y equipamiento medico</a></li>
+                <li><a id="MLM1540" onclick= "initDocument(id)">Servicios</a></li>
+                </ul>
+                </nav>
+            </div>
+
+
+            
+              <div class="table-wrapper">
+                <table id="tabla_factura"  class="content-table" >
+                    <thead>
+                        <tr>
+                            <th>Rank</th>
+                            <th>Vendedor</th>
+                            <th>Reputacion</th>
+                            <th>Titulo</th>
+                            <th>Precio</th>
+                            <th>Vendidos</th>
+                            <th>Tipo de publicación</th>
+                            <th>Direccion</th>
+                            <th>Envio Gratis</th>
+                            <th>Publicacion</th>
+                        </tr>
+                    </thead>
+                    <tbody id="content_table">
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+        
+                        </tr>
+                    </tbody>
+                </table>
+            </div> 
+            <div class="loader-container" id = "loader-container"  style="display:none">
+                <div class="loader"></div>
+                <div class="loader2"></div>
+              </div>
+
+    <!--form enctype="multipart/form-data" class="upload" > 
+        <input id="upload" type=file  name="files[]" style="display:none" >
+    </form-->
+    <button class="upload" id="upload" style="display:none" onclick="iniciarAnalisis()"> Iniciar Analisis</button>
+
+
+    
+</body>
+<script src="js/read_xlsx.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.8.0/jszip.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.8.0/xlsx.js"></script>
+    <script src="js/swich.js"></script>
+
+<script src="Librerias/bootstrap/js/bootstrap.js"></script>
+<script src="js/Dinamyc.js"></script>
+<script src="js/Peticiones.js"></script>
+<script src="js/table.js"></script>
+<script src="js/alasql.min.js"></script>
+<script src="js/xlsx.core.min.js"></script>
+</html>

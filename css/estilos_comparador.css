@@ -1,0 +1,203 @@
+body{
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.upload{
+  position: absolute;
+  top:500px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  
+}
+
+.opc2{
+  position: relative;
+  top: 20px;
+  right: 20px;
+}
+
+
+.texto1{
+  position: absolute;
+  left: 60px;
+  top: 20 px;
+  color: #F2F2F2;
+}
+
+.texto2{
+  position: absolute;
+  left: 60px;
+  top: 50px;
+  color: #F2F2F2;
+}
+
+.nickname{
+  position: absolute;
+  top:40px;
+  left: 30%;
+  transform: translate(-50%, -50%);
+  color: #F2F2F2;
+}
+
+
+.opc1{
+  position: relative;
+  top: 60px;
+  right: 20px;
+}
+
+
+
+h2{
+    left: 50px;}
+
+/* Formateamos el label que servirá de contenedor */
+.switch1 {
+    position: absolute;
+  
+    width: 40px;
+    height: 21px;
+    right: 20 px;
+    top:50px;
+  }
+   
+  /* Ocultamos el checkbox html */
+  .switch1 input {
+    display:none;
+  }
+
+  .switch2 {
+    position: absolute;
+ 
+    width: 40px;
+    height: 21px;
+    right: 20 px;
+    top:20 px;
+  }
+   
+  /* Ocultamos el checkbox html */
+  .switch2 input {
+    display:none;
+  }
+   
+  /* Formateamos la caja del interruptor sobre la cual se deslizará la perilla de control o slider */
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+   
+  /* Pintamos la perilla de control o slider usando el selector before */
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 15px;
+    width: 15px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+   
+  /* Cambiamos el color de fondo cuando el checkbox esta activado */
+  input:checked + .slider {
+    background-color: #5B808E;
+  }
+   
+  /* Deslizamos el slider a la derecha cuando el checkbox esta activado */ 
+  input:checked + .slider:before {
+    -webkit-transform: translateX(17px);
+    -ms-transform: translateX(17px);
+    transform: translateX(17px);
+  }
+   
+  /* Aplicamos efecto de bordes redondeados en slider y en el fondo del slider */
+  .slider.round {
+    border-radius: 34px;
+  }
+   
+  .slider.round:before {
+    border-radius: 50%;
+  }
+
+  .seccion2{
+    width: 100%;
+    padding: 7px;
+    font-size: 14px;
+    text-align: center;
+    line-height: 50px;
+    float: left;
+    margin-top: 0px;
+    margin-left: 0px;
+    color: #dddd;
+    background-color: #173341;
+  }
+
+   
+  .loader-container{
+    
+    width: 60px;
+    height: 60px;
+
+    position: absolute;
+    top:500px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    
+  }
+   
+  .loader-container .loader{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    border: solid 4px transparent;
+    border-top-color: #5B808E;
+    border-left-color: #5B808E;
+    border-radius: 50%;
+    animation: loader 1.4s linear infinite;
+  }
+   
+  .loader-container .loader2{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 70%;
+    height: 70%;
+    border: solid 4px transparent;
+    border-top-color: #173341;
+    border-left-color: #173341;
+    border-radius: 50%;
+    animation: loader2 1.2s linear infinite;
+  }
+   
+  @keyframes loader{
+    0%{
+      transform: translate(-50%, -50%) rotate(0deg);
+    }
+    100%{
+      transform: translate(-50%, -50%) rotate(360deg);
+    }
+  }
+   
+  @keyframes loader2{
+    0%{
+      transform: translate(-50%, -50%) rotate(0deg);
+    }
+    100%{
+      transform: translate(-50%, -50%) rotate(-360deg);
+    }
+  }
+  
