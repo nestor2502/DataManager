@@ -15,6 +15,28 @@ async function getChildrencategories(category){
     return categories
 }
 
+/**
+ * Function that give the total elementos in search
+ */
+async function getNumberElements(caracteristicas, tipo_busqueda){
+    var data
+    var url;
+    if (tipo_busqueda == 1){
+            url = `https://api.mercadolibre.com/sites/MLM/search?q=${caracteristicas.keywords}&offset=${caracteristicas.offset}`
+    }
+    else if(tipo_busqueda == 2){
+        url = `https://api.mercadolibre.com/sites/MLM/search?q=${caracteristicas.keywords}&offset=${caracteristicas.offset}&category=${caracteristicas.category}`
+    }
+    else if( tipo_busqueda == 3){
+        url = `https://api.mercadolibre.com/sites/MLM/search?category=${caracteristicas.category}&offset=${caracteristicas.offset}`
+    }
+    let response = await fetch(url)
+    let content = await response.json()
+    
+    var publications =  content['paging'].total
+
+    return publications
+}
 
 /**
  * Funcion que obtiene json sin modificar y lo pasa a una lista 

@@ -1,9 +1,11 @@
+// onclick="download_csv()"
 let main_category = ""
 let offset= 0
 let general_url = ""
 let using_input = false
 let words = ""
 let input_used_to_index = false
+let shearchOnlyCategory = false
 
 /**
  * This function init the document in a category
@@ -12,14 +14,19 @@ let input_used_to_index = false
  */
 async function initDocument(category){
     await cleanTable()
+    clearInput()
     change_category.innerHTML = "";
     dropdown_menu.innerHTML = "";
+    no_elements.innerHTML = "";
+    inputSearch1.innerHTML = "";
     offset = 0
     main_category = category
     using_input = false
+    showChecker()
     addElements(category)
     //changeCategoryTitle(await getPath(category))
     getElements(category, offset)
+    setNoResults()
     console.log(main_category)
     setPath()
 }
@@ -94,33 +101,18 @@ function changeCategoryTitle(title){
 */
 async function doSearch(keywords){
     input_used_to_index=true
-    if(keywords == false){
-        words = document.getElementById("input-search").value
-    }
-    else{
-    words = keywords.value}
+    words = keywords.value
+    no_elements.innerHTML = "";
     offset=0
-    console.log(words)
-    if(main_category==""){
+    await cleanTable()
+    if(shearchOnlyCategory==false){
         getElementsFree(words, offset, false,"" )}
-    else if(main_category != ""){
+    else if(shearchOnlyCategory ==true){
         getElementsFree(words, offset, true, main_category)
     }
+    setNoResults()
 }
 
-/** 
- * this function do the search of a specific word
- * @param keywords 
- * @param offset
-*/
-async function doSearchIndex(offset){
-    if(main_category==""){
-        getElementsFree(words, offset, false,"" )}
-    else if(main_category != ""){
-        getElementsFree(words, offset, true, main_category)
-    }
-    
-}
 
 /**
  * This function change the offset of a search
@@ -155,11 +147,7 @@ async function backPage(){
 }
 
 async function showButtons(){
-   document.getElementById("atras").style.displlay = "visible"
-   document.getElementById("siguiente").style.display = "visible"
    document.getElementById("imprimir").style.display = "visible"
-  $('#atras').addClass('d-block');
-  $('#siguiente').addClass('d-block');
   $('#imprimir').addClass('d-inline-block');
 
 }
@@ -169,10 +157,10 @@ async function generateList(){
         data = await GetTableGeneral(main_category, offset)
     }
     else{
-        if(main_category==""){
+        if(shearchOnlyCategory==false){
             data = await GetTableSpecificSearch(words, offset, false,"" )
            }
-        else if(main_category != ""){
+        else if(shearchOnlyCategory == true){
             data = await  GetTableSpecificSearch(words, offset, true, main_category)
         }
     }
@@ -198,4 +186,55 @@ function colocarLoader(){
 
 function quitarLoader(){
     $('#loader').removeClass('d-inline-block');
+}
+
+async function setNoResults(){
+    var data
+    var number
+    if(input_used_to_index == false){
+        data = {category:main_category, offset: offset}
+        number = await getNumberElements(data,3)
+    }
+    else{
+        if(shearchOnlyCategory==false){
+            data = {keywords: words, category: "", offset: offset};
+            number = await getNumberElements(data,1)
+           }
+        else if(shearchOnlyCategory == true){
+            data = {keywords: words, category: main_category, offset: offset};
+            number = await getNumberElements(data,2)
+        }
+    }
+    
+    var content =  document.getElementById("no_elements")
+    content.innerHTML = "";
+    var p=document.createElement('p');
+    p.id="nuevo";
+    p.innerHTML=`<p  style="display: inline-block;">${"Resultados: ".concat(number)}</p>`
+    document.getElementById("no_elements").appendChild(p);
+    
+}
+
+function showChecker(){
+    if(main_category != ""){
+        $('#checker').addClass('d-inline-block');
+    }
+    else{
+        $('#checker').removeClass('d-inline-block');
+    }
+}
+
+function setSearchCategory(){
+    if(shearchOnlyCategory == false){
+        shearchOnlyCategory = true
+    }
+    else if(shearchOnlyCategory == true){
+        shearchOnlyCategory = false
+    }
+    console.log(shearchOnlyCategory)
+}
+
+function clearInput(){
+    $("#inputSearch1").val('');
+    console.log("se usa funcion")
 }

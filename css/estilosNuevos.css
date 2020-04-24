@@ -2,4 +2,13 @@
     .footer, .push {
         height: 2em;
         }
+
+
+.search{
+    width: 50px;
+    top: 20px;
+}
  
+.table {
+    width: 100%;
+}
