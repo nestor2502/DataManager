@@ -1,4 +1,4 @@
-// onclick="download_csv()"
+//onclick="download_csv()"
 let main_category = ""
 let offset= 0
 let general_url = ""
@@ -6,7 +6,7 @@ let using_input = false
 let words = ""
 let input_used_to_index = false
 let shearchOnlyCategory = false
-
+tags = []
 /**
  * This function init the document in a category
  * add the news elements in the table
@@ -24,11 +24,10 @@ async function initDocument(category){
     using_input = false
     showChecker()
     addElements(category)
-    //changeCategoryTitle(await getPath(category))
     getElements(category, offset)
     setNoResults()
-    console.log(main_category)
     setPath()
+    tags = []
 }
 
 
@@ -83,16 +82,6 @@ async function addElements(category){
     
 }
 
-/**
- * This function change the path of a category
- * @param {title} title 
- */
-function changeCategoryTitle(title){
-
-    getElementById("atras").style.display = 'visible'
-    getElementById("siguiente").style.display = "visible"
-    getElementById("imprimir").style.display = "visible"
-}
 
 /** 
  * this function do the search of a specific word
@@ -125,7 +114,7 @@ async function nextPage(){
         doSearchIndex(offset)
     }
     else{
-    getElements(main_category, offset)}
+        getElements(main_category, offset)}
  
 }
 
@@ -237,4 +226,24 @@ function setSearchCategory(){
 function clearInput(){
     $("#inputSearch1").val('');
     console.log("se usa funcion")
+}
+
+function getTags(word){
+    tags.push(word)    
+}
+
+function showTagsDiv(){
+    $('#tagsDivv').addClass('d-inline-block');
+    $('#no_mostra_div').addClass('d-none');
+    $('#mostrar_div').addClass('d-none');
+    $('#hecho').addClass('d-inline-block');
+    $('#atrasDiv').addClass('d-inline-block');
+}
+
+function showTagsDiv2(){
+    $('#tagsDivv').removeClass('d-inline-block');
+    $('#no_mostra_div').removeClass('d-none');
+    $('#mostrar_div').removeClass('d-none');
+    $('#hecho').removeClass('d-inline-block');
+    $('#atrasDiv').removeClass('d-inline-block');
 }
