@@ -14,19 +14,10 @@ async function getChildrencategories(category){
     }
     return categories
 }
-
-
 /**
- * Funcion que obtiene json sin modificar y lo pasa a una lista 
- * @param caracteristicas: diccionario con las caracteristicas necesarias
- * @param tipo_busqueda:
- *      1.- busqueda libre  sin categoria
- *      2.- busqueda libre con categoria
- *      3.- resultados al iniciar categoria
- * 
+ * Function that give only json
  */
-async function getJson(caracteristicas, tipo_busqueda){
-    var data = []
+async function getPureJson(caracteristicas, tipo_busqueda){
     var url;
     if (tipo_busqueda == 1){
             url = `https://api.mercadolibre.com/sites/MLM/search?q=${caracteristicas.keywords}&offset=${caracteristicas.offset}`
@@ -39,12 +30,34 @@ async function getJson(caracteristicas, tipo_busqueda){
     }
     let response = await fetch(url)
     let content = await response.json()
+    return content
+}
+/**
+ * Function that give the total elementos in search
+ */
+async function getNumberElements(caracteristicas, tipo_busqueda){
+    var content=await getPureJson(caracteristicas, tipo_busqueda)
+    var publications =  content['paging'].total
+    return publications
+}
+
+/**
+ * Funcion que obtiene json sin modificar y lo pasa a una lista 
+ * @param caracteristicas: diccionario con las caracteristicas necesarias
+ * @param tipo_busqueda:
+ *      1.- busqueda libre  sin categoria
+ *      2.- busqueda libre con categoria
+ *      3.- resultados al iniciar categoria
+ * 
+ */
+async function getJson(caracteristicas, tipo_busqueda){
+    var data = []
+    let content = await  getPureJson(caracteristicas, tipo_busqueda)
     var publications =  content['results']
     var tamano = publications.length
     for(var i =tamano-1; i>=0; i--) {
         var diccionario = {}
         singular_publication = publications[i]
-        //console.log(singular_publication)
         diccionario["seller"]= await getSeller(singular_publication.seller.id)
         diccionario["seller_reputation"]= await getSellerReputation(singular_publication.seller.id)
         diccionario["title"]= await singular_publication.title
@@ -59,8 +72,6 @@ async function getJson(caracteristicas, tipo_busqueda){
         var free_shipping = await singular_publication.shipping.free_shipping
         diccionario["free"]= await freeShipping(free_shipping)
         diccionario["publication"]=  await singular_publication.permalink
-       
-        //var producto = [seller, seller_reputation, title, price, quantity, tipo_publicacion ,address, free, publication]
         data.push(diccionario)
     }
     return data
@@ -127,46 +138,9 @@ async function addTableRow(data1, offset){
     })
 }
 
-
-async function getElementsComparator(keywords, offset, allow_category, category){
-    data = []
-    for(var j =0; j<=offset; j+=50){
-        if(allow_category == false){
-            url = `https://api.mercadolibre.com/sites/MLM/search?q=${keywords}&offset=${j}`}
-        else {
-            url = `https://api.mercadolibre.com/sites/MLM/search?q=${keywords}&offset=${j}&category=${category}`
-        }
-        let response = await fetch(url)
-        let content = await response.json()
-        var publications = await content['results']
-        var tamano = await publications.length
-        
-        for(var i =0; i<=tamano-1; i++) {
-            singular_publication = await publications[i]
-            
-            var seller = await singular_publication.seller.id 
-            var seller_name = await getSeller(seller)
-            var seller_reputation = await reputationConverter(getSellerReputation(seller))
-            var title = await singular_publication.title
-            var price = await singular_publication.price
-            var cantidad = await singular_publication.sold_quantity
-            var quantity = await soldExactlyConverter(cantidad)
-            var state =  await singular_publication.address.state_name
-            var city = await singular_publication.address.city_name
-            var tp_id= await singular_publication.listing_type_id
-            var tipo_publicacion= await getExposure(tp_id)
-            var address = await city.concat(" / ").concat(state)
-            var free_shipping = await singular_publication.shipping.free_shipping
-            var free = await freeShipping(free_shipping)
-            var publication = await singular_publication.permalink
-            var singular_data = {"Vendedor":seller_name,"Reputacion":seller_reputation, "Titulo":title, "Precio":price,"Vendidos":cantidad, "Tipo de Publicacion": tipo_publicacion, "Direccion":address,"Envio Gratis":free,  "Publicacion":publication}
-            data.push(singular_data)
-        }
-    }
-    return data
- }
-
-
+/**
+ * This function get the nickname seller
+ */
 async function getSeller(id){
     var seller = ""
     url = `https://api.mercadolibre.com/users/${id}`
@@ -175,6 +149,10 @@ async function getSeller(id){
     let name = await content.nickname
     return name
 }
+
+/**
+ * This function give the reputation seller
+ */
 async function getSellerReputation(id){
     var seller = ""
     url = `https://api.mercadolibre.com/users/${id}`
@@ -184,7 +162,9 @@ async function getSellerReputation(id){
     return reputation
 }
 
-
+/**
+ * This function give the id category
+ */
 async function getNameCategorybyID(id){
     url = `https://api.mercadolibre.com/categories/${id}`
     let response = await fetch(url)
@@ -252,6 +232,9 @@ async function getElementsFree(keywords, offset, allow_category, category){
      return rutas
  }
 
+ /**
+  * This function gives the publication exposure
+  */
  async function getExposure(id){
     url= `https://api.mercadolibre.com/sites/MLM/listing_types/${id}`
     let response = await fetch(url)
@@ -260,6 +243,9 @@ async function getElementsFree(keywords, offset, allow_category, category){
      return exposure
  }
 
+ /**
+  * This function converts a number to the information that will be shown in the reputation
+  */
  async function reputationConverter(seller_reputation){
      var reputation = await seller_reputation
      if(reputation == "5_green") return 5
@@ -270,12 +256,18 @@ async function getElementsFree(keywords, offset, allow_category, category){
      else return 0
  }
 
+ /**
+  * Returns if a publication has free shipping
+  */
  async function freeShipping(value){
      free = await value
      if(free == true) return "Si"
      else return "No"
  }
 
+ /**
+  * This function converts a number to the information that will be shown in sold queantity
+  */
  async function soldExactlyConverter(sold_quantity){
     quantity  = await sold_quantity
     if(quantity == 1) return "1"
@@ -365,15 +357,3 @@ async function getElementsFree(keywords, offset, allow_category, category){
     }
     return data
  }
-
-
-async function printdicc(){
-    var diccionario = {keywords:"Base Amortiguador Megane Ii Scenic Ii 04-10 Con Balero",offset: 0, category : "MLM160901"}
-    var json1 = await getJson(diccionario, 2);
-    //console.log(json1)
-    var json2 = await convertJsonList(json1);
-    //console.log(json2);
-    //var tabla = await getTable(json2);
-    //console.log(tabla);
-    addTableRow(json2)
-    }
