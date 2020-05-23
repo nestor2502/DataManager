@@ -1,4 +1,4 @@
-//onclick="download_csv()"
+
 let main_category = ""
 let offset= 0
 let general_url = ""
@@ -6,13 +6,14 @@ let using_input = false
 let words = ""
 let input_used_to_index = false
 let shearchOnlyCategory = false
-tags = []
+main_tags = []
 /**
  * This function init the document in a category
  * add the news elements in the table
  * @param {*} category 
  */
 async function initDocument(category){
+   
     await cleanTable()
     clearInput()
     change_category.innerHTML = "";
@@ -24,10 +25,10 @@ async function initDocument(category){
     using_input = false
     showChecker()
     addElements(category)
-    getElements(category, offset)
     setNoResults()
+    getElements(category, offset)
     setPath()
-    tags = []
+    main_tags = []
 }
 
 
@@ -67,6 +68,7 @@ location.reload(true);
  * @param {*} category 
  */
 async function addElements(category){
+    
     json = await getChildrencategories(category)
     name_categories= []
     id_categories= Object.keys(json)
@@ -100,6 +102,8 @@ async function doSearch(keywords){
         getElementsFree(words, offset, true, main_category)
     }
     setNoResults()
+    main_tags = []
+    second_tags = []
 }
 
 
@@ -141,24 +145,24 @@ async function showButtons(){
 
 }
 
-async function generateList(){
+async function generateList(allow_tags){
     if(input_used_to_index == false){
-        data = await GetTableGeneral(main_category, offset)
+        data = await GetTableGeneral(main_category, offset, allow_tags, main_tags)
     }
     else{
         if(shearchOnlyCategory==false){
-            data = await GetTableSpecificSearch(words, offset, false,"" )
+            data = await GetTableSpecificSearch(words, offset, false,"" , allow_tags, main_tags)
            }
         else if(shearchOnlyCategory == true){
-            data = await  GetTableSpecificSearch(words, offset, true, main_category)
+            data = await  GetTableSpecificSearch(words, offset, true, main_category, allow_tags, main_tags)
         }
     }
     return data
 }
 
-async function download_csv() {
+async function download_csv(allow_tags) {
     $('#loaderImprimir').addClass('d-inline-block');
-    var sheet_1_data = await generateList()  
+    var sheet_1_data = await generateList(allow_tags)  
     var opts = [{sheetid:'Sheet One',header:true}];
             var result = alasql('SELECT * INTO XLSX("Reporte General.xlsx",?) FROM ?', 
                                                 [opts,[sheet_1_data]]);
@@ -169,14 +173,25 @@ async function convertDictionary(){
     let list = await generateList()
 }
 
+
+/**
+ * Put loader on screen
+ */
 function colocarLoader(){
     $('#loader').addClass('d-inline-block');
 }
 
+/**
+ * remove loader from screen
+ */
 function quitarLoader(){
     $('#loader').removeClass('d-inline-block');
 }
 
+
+/**
+ * Shows the total number of results by search or category
+ */
 async function setNoResults(){
     var data
     var number
@@ -204,6 +219,9 @@ async function setNoResults(){
     
 }
 
+/**
+ * Show the component option to search only in the category
+ */
 function showChecker(){
     if(main_category != ""){
         $('#checker').addClass('d-inline-block');
@@ -213,6 +231,9 @@ function showChecker(){
     }
 }
 
+/**
+ * Show the option to search only in the category
+ */
 function setSearchCategory(){
     if(shearchOnlyCategory == false){
         shearchOnlyCategory = true
@@ -220,16 +241,28 @@ function setSearchCategory(){
     else if(shearchOnlyCategory == true){
         shearchOnlyCategory = false
     }
-    console.log(shearchOnlyCategory)
 }
 
+/**
+ * clean the search engine entry
+ */
 function clearInput(){
     $("#inputSearch1").val('');
-    console.log("se usa funcion")
 }
 
-function getTags(word){
-    tags.push(word)    
+
+/**
+ * add main tags
+ */
+function getMainTags(word){
+    main_tags.push(word)   
+}
+
+/**
+ * delete the last element
+ */
+function newMainTags(){
+    main_tags.pop()   
 }
 
 function showTagsDiv(){

@@ -1,4 +1,4 @@
-
+console.log
 async function getChildrencategories(category){
     categories = {}
     url = `https://api.mercadolibre.com/categories/${category}`
@@ -114,7 +114,6 @@ async function getTable(data, type_search){
     var table = []
     var json1 = await getJson(data, type_search);
     var json2 = await convertJsonList(json1);
-    console.log("start")
     for(var i = 0; i< await  json2.length; i++){
         var row = await json2[i]
         var singular_data = {"Vendedor":row[0],"Reputacion":row[1], "Titulo":row[2], "Precio":row[3],"Vendidos":row[4], "Tipo de Publicacion": row[5],"Direccion":row[6],"Envio Gratis":row[7],  "Publicacion":row[8]} 
@@ -159,7 +158,7 @@ async function getSellerReputation(id){
     let response = await fetch(url)
     let content =  await response.json()
     let reputation = await content.seller_reputation.level_id
-    return reputation
+    return reputationConverter(reputation)
 }
 
 /**
@@ -287,7 +286,11 @@ async function getElementsFree(keywords, offset, allow_category, category){
     else return "0"
  }
 
- async function GetTableGeneral(category, offset){
+ 
+ /**
+  * Function that returns a dictionary with the data to add to the file
+  */
+ async function GetTableGeneral(category, offset, allow_tags, tags){
      data = []
      for(var j =0; j<=offset; j+=50){
         url = `https://api.mercadolibre.com/sites/MLM/search?category=${category}&offset=${j}`
@@ -300,7 +303,7 @@ async function getElementsFree(keywords, offset, allow_category, category){
             singular_publication = await publications[i]
             var seller = await singular_publication.seller.id 
             var seller_name = await getSeller(seller)
-            var seller_reputation = await reputationConverter(getSellerReputation(seller))
+            var seller_reputation = await getSellerReputation(seller)
             var title = await singular_publication.title
             var price = await "$".concat(singular_publication.price)
             var cantidad = await singular_publication.sold_quantity
@@ -317,10 +320,16 @@ async function getElementsFree(keywords, offset, allow_category, category){
             data.push(singular_data)
         }
      }
+     if(allow_tags == true){
+         data = await addTagsTable(data, tags)
+     }
      return data
  }
 
- async function GetTableSpecificSearch(keywords, offset, allow_category, category){
+ /**
+  * Function that returns a dictionary with the data to add to the file
+  */
+ async function GetTableSpecificSearch(keywords, offset, allow_category, category,  allow_tags, tags){
     data = []
     for(var j =0; j<=offset; j+=50){
         if(allow_category == false){
@@ -338,7 +347,7 @@ async function getElementsFree(keywords, offset, allow_category, category){
             
             var seller = await singular_publication.seller.id 
             var seller_name = await getSeller(seller)
-            var seller_reputation = await reputationConverter(getSellerReputation(seller))
+            var seller_reputation = await getSellerReputation(seller)
             var title = await singular_publication.title
             var price = await "$".concat(singular_publication.price)
             var cantidad = await singular_publication.sold_quantity
@@ -355,5 +364,30 @@ async function getElementsFree(keywords, offset, allow_category, category){
             data.push(singular_data)
         }
     }
+    if(allow_tags == true){
+        data = await addTagsTable(data, tags)
+    }
     return data
+ }
+
+
+ /**
+  * Function that adds tags to the list
+  */
+ function addTagsTable(data, tags){  
+     for(var i = 0; i <data.length;i++){
+        var keywords = ""
+         var publication = data[i]
+         var title = publication["Titulo"].toLowerCase()
+         for(var j = 0; j< tags.length; j++){
+             if(title.includes(tags[j].toLowerCase())){
+                if(keywords.length == 0)
+                    keywords =  tags[j].toLowerCase()
+                else 
+                    keywords = keywords + ", " + tags[j].toLowerCase()
+             }
+        publication["Keywords"] = keywords
+         } 
+     }
+     return data
  }
