@@ -186,22 +186,22 @@
             <div class="modal-dialog modal-dialog-centered" role="document">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLongTitle">¿Quieres agregar resultados donde solo aparezca una palabra en especifico?</h5>
+                  <h5 class="modal-title" id="exampleModalLongTitle">¿Quieres mostrar palabras clave en el reporte?</h5>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
                 <div id = "tagsDivv" class="modal-body d-none">
-                  <p >Ingresa el nombre de la nueva columna: </p>
-                  <input type="text" placeholder="Ingresa una palabra...">
-                  <p>Ingresa las etiquetas: </p>
-                  <input type="text"  id = "tagg" placeholder="Escribe y presiona enter">
+                  <!--p >Ingresa el nombre de la nueva columna (límite 3 palabras): </p>
+                  <input type="text"  id = "tagg1"  placeholder="Escribe y presiona enter..."-->
+                  <p>Ingresa las palabras clave: </p>
+                  <input type="text"  id = "tagg1" placeholder="Escribe y presiona enter...">
                 </div>
                 <div class="modal-footer">
-                  <button id = "no_mostra_div" type="button" class="btn btn-secondary" data-dismiss="modal" onclick="download_csv()">No</button>
+                  <button id = "no_mostra_div" type="button" class="btn btn-secondary" data-dismiss="modal" onclick="download_csv(false)">No</button>
                   <button id = "mostrar_div" type="button" class="btn btn-outline-dark" onclick="showTagsDiv()">Si</button>
                   <button id = "atrasDiv"type="button" class="btn btn-outline-dark d-none" onclick="showTagsDiv2()">Atras</button>
-                  <button id = "hecho"type="button" class="btn btn-outline-dark d-none">Guardar reporte</button>
+                  <button id = "hecho"type="button" class="btn btn-outline-dark d-none" onclick="download_csv(true)">Guardar reporte</button>
 
                 </div>
               </div>
@@ -228,13 +228,15 @@
       
 </body>
 <script type="text/javascript">
-	$('#tagg').amsifySuggestags({
+	$('#tagg1').amsifySuggestags({
     afterAdd : function(value) {
-      getTags(value)
-		}
+      getMainTags(value)
+    },
+    afterRemove : function(value) {
+      newMainTags() 
+	  }
   });
 </script>
-
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
