@@ -175,6 +175,9 @@ async function backPage(){
 async function showButtons(){
    document.getElementById("imprimir").style.display = "visible"
   $('#imprimir').addClass('d-inline-block');
+  $('#atras').addClass('d-inline-block');
+  $('#siguiente').addClass('d-inline-block');
+
 
 }
 
