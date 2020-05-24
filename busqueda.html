@@ -14,7 +14,7 @@
 <!-- Amsify Plugin -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 <script type="text/javascript" src="js/jquery.amsify.suggestags.js"></script>
-    <title>Document</title>
+    <title>Data Manager</title>
 </head>
 <body>
   <div>
@@ -100,7 +100,6 @@
         </ol>
       </nav>
 
-      <div class="container">
         <!--Numero de resultados-->
         <div id ="no_elements">
 
@@ -111,7 +110,7 @@
             <div class="row ">
                 <div class="col-sm-12">
                     <div class="table-responsive">
-                    <table id="tabla_factura" class="table table-hover table-condensed table-bordered  table-stripedcol text-center " >
+                    <table id="tabla_factura" class="table table-hover table-condensed table-bordered  table-stripedcol text-center mx-auto" >
                         <tr>
                             <th>No.</th>
                             <th>Vendedor</th>
@@ -154,26 +153,17 @@
                     </button>
                   </div>
                   <!--Botones de paginacion-->
-                    <li class="page-item disabled"  onclick="backPage()">
+                    <li id="atras" class="page-item disabled d-none"  onclick="backPage()">
                       <a class="page-link" href="#" tabindex="-1"> 
                         <svg class="bi bi-chevron-left" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 010 .708L5.707 8l5.647 5.646a.5.5 0 01-.708.708l-6-6a.5.5 0 010-.708l6-6a.5.5 0 01.708 0z" clip-rule="evenodd"/>
                         </svg> Anterior</a>
                     </li>
                     <div id = "pages">
-                    <li class="page-item d-inline-block"><a class="page-link " href="#">1</a></li>
-                    <li class="page-item d-inline-block"><a class="page-link " href="#">2</a></li>
-                    <li class="page-item d-inline-block"><a class="page-link " href="#">3</a></li>
-                    <li class="page-item d-inline-block"><a class="page-link " href="#">4</a></li>
-                    <li class="page-item d-inline-block"><a class="page-link " href="#">5</a></li>
-                    <li class="page-item d-inline-block"><a class="page-link " href="#">6</a></li>
-                    <li class="page-item d-inline-block"><a class="page-link " href="#">7</a></li>
-                    <li class="page-item d-inline-block"><a class="page-link " href="#">8</a></li>
-                    <li class="page-item d-inline-block"><a class="page-link " href="#">9</a></li>
-                    <li class="page-item d-inline-block"><a class="page-link " href="#">10</a></li>
+                      <!-- Aqui se agregan dinamicamente botones de paginacion-->
                   </div>
-                    <li class="page-item">
-                      <a class="page-link" href="#" onclick="nextPage()"> Siguiente
+                    <li  class="page-item">
+                      <a id = "siguiente" class="page-link d-none" href="#" onclick="nextPage()"> Siguiente
                         <svg class="bi bi-chevron-right" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 01.708 0l6 6a.5.5 0 010 .708l-6 6a.5.5 0 01-.708-.708L10.293 8 4.646 2.354a.5.5 0 010-.708z" clip-rule="evenodd"/>
                         </svg></a>
@@ -201,7 +191,7 @@
                   <button id = "no_mostra_div" type="button" class="btn btn-secondary" data-dismiss="modal" onclick="download_csv(false)">No</button>
                   <button id = "mostrar_div" type="button" class="btn btn-outline-dark" onclick="showTagsDiv()">Si</button>
                   <button id = "atrasDiv"type="button" class="btn btn-outline-dark d-none" onclick="showTagsDiv2()">Atras</button>
-                  <button id = "hecho"type="button" class="btn btn-outline-dark d-none" onclick="download_csv(true)">Guardar reporte</button>
+                  <button id = "hecho"type="button" class="btn btn-outline-dark d-none" data-dismiss="modal"  onclick="download_csv(true)">Guardar reporte</button>
 
                 </div>
               </div>
@@ -210,7 +200,7 @@
                 </div>
             </div>
         </div>
-  </div>
+
 
       <!--Loader-->
       <div class="d-flex justify-content-center">
@@ -227,6 +217,7 @@
 
       
 </body>
+
 <script type="text/javascript">
 	$('#tagg1').amsifySuggestags({
     afterAdd : function(value) {
@@ -245,7 +236,6 @@
 <script src="js/table.js"></script>
 <script src="js/alasql.min.js"></script>
 <script src="js/xlsx.core.min.js"></script>
-<script src="js/PruebasNuevas.js"></script>
 <script src="Librerias/jquery-3.5.0.min.js"></script>
 <script src="Librerias/bootstrap/js/bootstrap.js"></script>
 </html>

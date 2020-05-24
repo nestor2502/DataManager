@@ -1,4 +1,4 @@
-console.log
+
 async function getChildrencategories(category){
     categories = {}
     url = `https://api.mercadolibre.com/categories/${category}`
@@ -187,6 +187,7 @@ async function getElements(category, offset){
     await addTableRow(json2, offset)
     quitarLoader()
     showButtons()
+
 }
 
 /**
@@ -198,15 +199,12 @@ async function getElements(category, offset){
 async function getElementsFree(keywords, offset, allow_category, category){
     var data = {keywords: keywords, category: category, offset: offset};
     var json1, json2;
-     //document.getElementById("input-search").value = "";
      colocarLoader()
      if(allow_category == false){
         json1 =await  getJson(data, 1)
-        //console.log(json1)
         json2 = await convertJsonList(json1)}
      else {
         json1 =await  getJson(data, 2)
-        //console.log(json1)
         json2 = await convertJsonList(json1)}
     cleanTable();
     await addTableRow(json2, offset)
