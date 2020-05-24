@@ -6,6 +6,7 @@ let using_input = false
 let words = ""
 let input_used_to_index = false
 let shearchOnlyCategory = false
+var no_results = 0
 main_tags = []
 /**
  * This function init the document in a category
@@ -14,6 +15,7 @@ main_tags = []
  */
 async function initDocument(category){
    
+    no_results = 0
     await cleanTable()
     clearInput()
     change_category.innerHTML = "";
@@ -25,10 +27,11 @@ async function initDocument(category){
     using_input = false
     showChecker()
     addElements(category)
-    setNoResults()
+    no_results = await setNoResults()
     getElements(category, offset)
     setPath()
     main_tags = []
+    changeButtons2(offset/50 +1)
 }
 
 
@@ -81,7 +84,6 @@ async function addElements(category){
         a.innerHTML=`<a class="dropdown-item" id="${id_category}" onclick= "initDocument('${id_category}')" >${nuevoLi}</a>`
         document.getElementById("dropdown_menu").appendChild(a);           
     }
-    
 }
 
 
@@ -101,9 +103,24 @@ async function doSearch(keywords){
     else if(shearchOnlyCategory ==true){
         getElementsFree(words, offset, true, main_category)
     }
-    setNoResults()
+    no_results = await setNoResults()
     main_tags = []
-    second_tags = []
+    changeButtons2(offset/50 +1)
+}
+
+/** 
+ * this function do the search of a specific word
+ * @param keywords 
+ * @param offset
+*/
+async function doSearchIndex(offset){
+    if(main_category==""){
+        getElementsFree(words, offset, false,"" )}
+    else if(main_category != ""){
+        getElementsFree(words, offset, true, main_category)
+    }
+    changeButtons2(offset/50 +1)
+
 }
 
 
@@ -119,7 +136,22 @@ async function nextPage(){
     }
     else{
         getElements(main_category, offset)}
- 
+    changeButtons2(offset/50 +1)
+}
+
+/**
+ * This function change the offset of a search,
+ * and add the elements in the table
+ */
+async function changePage(index){
+    cleanTable()
+    offset=(index-1)*50
+    if(input_used_to_index == true){
+        doSearchIndex(offset)
+    }
+    else{
+        getElements(main_category, offset)}
+    changeButtons2(offset/50 +1)
 }
 
 /**
@@ -137,6 +169,7 @@ async function backPage(){
         else{
         getElements(main_category, offset)}
     }
+    changeButtons2(offset/50 +1)
 }
 
 async function showButtons(){
@@ -216,7 +249,7 @@ async function setNoResults(){
     p.id="nuevo";
     p.innerHTML=`<p  style="display: inline-block;">${"Resultados: ".concat(number)}</p>`
     document.getElementById("no_elements").appendChild(p);
-    
+    return number
 }
 
 /**
@@ -280,3 +313,72 @@ function showTagsDiv2(){
     $('#hecho').removeClass('d-inline-block');
     $('#atrasDiv').removeClass('d-inline-block');
 }
+
+/**
+ * Function that modifies the lower buttons
+ */
+async function changeButtons(index){
+    var results = await no_results
+    var max_pages = giveNoPages(results)
+    var currentPage = offset/50 +1
+    pages.innerHTML = "";
+    for(var i =1; i<=7;i++){
+        var li=document.createElement('li');
+        li.id="item";
+        if(i == currentPage){
+            li.className = "page-item d-inline-block active"
+            li.innerHTML=`<a class="page-link " >${i}</a>`}
+        else{
+            li.className = "page-item d-inline-block"
+            li.innerHTML=`<a class="page-link " id =${i} onclick= "change">${i}</a>`}        
+        document.getElementById("pages").appendChild(li);
+    }
+}
+
+/**
+ * 
+ */
+async function changeButtons2(index){
+    var results = await no_results
+    var max_pages = giveNoPages(results)
+    //var index = offset/50 +1
+    pages.innerHTML = "";
+    if(max_pages<=10 ){      
+        createPageButtons(max_pages,1, index)
+    }
+
+    else if( index <=5 && max_pages > 10){
+        createPageButtons(10,1, index)
+    }
+    else if(max_pages > 10){
+        if(index < max_pages-5)
+            createPageButtons(11,index-5, index)
+         else
+            createPageButtons(10,max_pages-10, index)
+    }
+}
+
+function createPageButtons(size, start, currentPage){
+    for(var i =start; i<=start+size;i++){
+        var li=document.createElement('li');
+        li.id="item";
+        if(i == currentPage){
+            li.className = "page-item d-inline-block active"
+            li.innerHTML=`<a class="page-link " >${i}</a>`}
+        else{
+            li.className = "page-item d-inline-block"
+            li.innerHTML=`<a class="page-link " id =${i} onclick= "changePage(id)">${i}</a>`}        
+        document.getElementById("pages").appendChild(li);
+}
+}
+/**
+ * Function that returns the total number of pages
+ */
+function giveNoPages(noResults){
+    var pages =  Math.floor(noResults/50)
+    if((noResults % 50) > 0){
+        pages ++
+    }
+    return pages
+}
+

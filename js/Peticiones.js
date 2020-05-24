@@ -1,4 +1,4 @@
-console.log
+
 async function getChildrencategories(category){
     categories = {}
     url = `https://api.mercadolibre.com/categories/${category}`
@@ -187,6 +187,7 @@ async function getElements(category, offset){
     await addTableRow(json2, offset)
     quitarLoader()
     showButtons()
+
 }
 
 /**
