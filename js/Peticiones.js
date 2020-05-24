@@ -384,7 +384,7 @@ async function getElementsFree(keywords, offset, allow_category, category){
                 else 
                     keywords = keywords + ", " + tags[j].toLowerCase()
              }
-        publication["Keywords"] = keywords
+        publication["Coincidencias"] = keywords
          } 
      }
      return data
