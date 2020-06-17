@@ -23,5 +23,5 @@ async function getToken(){
         let response = await fetch(`https://api.mercadolibre.com/oauth/token?grant_type=authorization_code&client_id=1023440189137769&client_secret=x8qnqUeIBvx9FcHqes31j63aZ0rc2NL3&code=${code}&redirect_uri=https://nestor2502.github.io/DataManager/`, {method:'POST'})
         let content = await response.json()
         token = await content.access_token}
-    return token
+    return await token
 }
