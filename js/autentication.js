@@ -20,7 +20,7 @@ async function getToken(){
     if (token ==""){
         var URLactual = window.location;
         var code = getParameterByName('code', URLactual)
-        let response = await fetch(`https://api.mercadolibre.com/oauth/token?grant_type=authorization_code&client_id=1023440189137769&client_secret=x8qnqUeIBvx9FcHqes31j63aZ0rc2NL3&code=${code}&redirect_uri=https://nestor2502.github.io/DataManager/`, {method:'POST'})
+        let response = await fetch(`https://api.mercadolibre.com/oauth/token?grant_type=authorization_code&client_id=1023440189137769&client_secret=x8qnqUeIBvx9FcHqes31j63aZ0rc2NL3&code=${code}&redirect_uri=https://nestor2502.github.io/DataManager/busqueda.html`, {method:'POST'})
         let content = await response.json()
         token = await content.access_token}
         console.log("Token 222; "+token)
