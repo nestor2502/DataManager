@@ -20,6 +20,7 @@ async function getChildrencategories(category){
 async function getPureJson(caracteristicas, tipo_busqueda){
     var url;
     var token = getToken();
+    console.log("Token: "+ token)
     if (tipo_busqueda == 1){
         url = `https://api.mercadolibre.com/sites/MLM/search?q=${caracteristicas.keywords}&offset=${caracteristicas.offset}&access_token=${token}`
     }
