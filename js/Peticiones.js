@@ -22,13 +22,13 @@ async function getPureJson(caracteristicas, tipo_busqueda){
     var token = await getToken();
     console.log("Token: "+ token)
     if (tipo_busqueda == 1){
-        url = `https://api.mercadolibre.com/sites/MLM/search?q=${caracteristicas.keywords}&offset=${caracteristicas.offset}&access_token=${token}`
+        url = await `https://api.mercadolibre.com/sites/MLM/search?q=${caracteristicas.keywords}&offset=${caracteristicas.offset}&access_token=${token}`
     }
     else if(tipo_busqueda == 2){
-        url = `https://api.mercadolibre.com/sites/MLM/search?q=${caracteristicas.keywords}&offset=${caracteristicas.offset}&category=${caracteristicas.category}&access_token=${token}`
+        url = await `https://api.mercadolibre.com/sites/MLM/search?q=${caracteristicas.keywords}&offset=${caracteristicas.offset}&category=${caracteristicas.category}&access_token=${token}`
     }
     else if( tipo_busqueda == 3){
-        url = `https://api.mercadolibre.com/sites/MLM/search?category=${caracteristicas.category}&offset=${caracteristicas.offset}&access_token=${token}`
+        url = await `https://api.mercadolibre.com/sites/MLM/search?category=${caracteristicas.category}&offset=${caracteristicas.offset}&access_token=${token}`
     }
     let response = await fetch(url)
     let content = await response.json()
