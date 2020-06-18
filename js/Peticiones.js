@@ -20,7 +20,6 @@ async function getChildrencategories(category){
 async function getPureJson(caracteristicas, tipo_busqueda){
     var url;
     var token = await getToken();
-    console.log("Token: "+ token)
     if (tipo_busqueda == 1){
         url = await `https://api.mercadolibre.com/sites/MLM/search?q=${caracteristicas.keywords}&offset=${caracteristicas.offset}&access_token=${token}`
     }
@@ -292,8 +291,9 @@ async function getElementsFree(keywords, offset, allow_category, category){
   */
  async function GetTableGeneral(category, offset, allow_tags, tags){
      data = []
+     var token = await getToken();
      for(var j =0; j<=offset; j+=50){
-        url = `https://api.mercadolibre.com/sites/MLM/search?category=${category}&offset=${j}`
+        url = `https://api.mercadolibre.com/sites/MLM/search?category=${category}&offset=${j}&access_token=${token}`
         let response = await fetch(url)
         let content = await response.json()
         var publications = await content['results']
@@ -331,11 +331,12 @@ async function getElementsFree(keywords, offset, allow_category, category){
   */
  async function GetTableSpecificSearch(keywords, offset, allow_category, category,  allow_tags, tags){
     data = []
+    var token = await getToken();
     for(var j =0; j<=offset; j+=50){
         if(allow_category == false){
-            url = `https://api.mercadolibre.com/sites/MLM/search?q=${keywords}&offset=${j}`}
+            url = `https://api.mercadolibre.com/sites/MLM/search?q=${keywords}&offset=${j}&access_token=${token}`}
         else {
-            url = `https://api.mercadolibre.com/sites/MLM/search?q=${keywords}&offset=${j}&category=${category}`
+            url = `https://api.mercadolibre.com/sites/MLM/search?q=${keywords}&offset=${j}&category=${category}&access_token=${token}`
         }
         let response = await fetch(url)
         let content = await response.json()
