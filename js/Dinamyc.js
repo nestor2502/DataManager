@@ -339,12 +339,15 @@ async function changeButtons(index){
 }
 
 /**
- * 
+ * Number of page
  */
 async function changeButtons2(index){
     var results = await no_results
-    var max_pages = giveNoPages(results)
-    //var index = offset/50 +1
+    var max_pages = 0
+    if (results > 10000){
+        max_pages = giveNoPages(10000)}
+    else if (results <= 10000){ 
+      giveNoPages(results)}
     pages.innerHTML = "";
     if(max_pages<=10 ){      
         createPageButtons(max_pages,1, index)

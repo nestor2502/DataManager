@@ -45,7 +45,6 @@ async function getToken(){
         }
         token = token2
     } 
-    console.log("Cookie: "+token) 
     return await token
 }
 
