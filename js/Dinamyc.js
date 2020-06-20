@@ -347,7 +347,7 @@ async function changeButtons2(index){
     if (results > 10000){
         max_pages = giveNoPages(10000)}
     else if (results <= 10000){ 
-      giveNoPages(results)}
+        max_pages =  giveNoPages(results)}
     pages.innerHTML = "";
     if(max_pages<=10 ){      
         createPageButtons(max_pages,1, index)
